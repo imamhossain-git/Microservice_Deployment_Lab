@@ -1,6 +1,6 @@
 name: CI using action
 
-no:
+on:
   push:
     branches:
       - main
