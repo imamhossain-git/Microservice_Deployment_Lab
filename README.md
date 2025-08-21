@@ -6,7 +6,7 @@ This project demonstrates a **CI/CD pipeline** for building and deploying a Dock
 
 ## ✨ Features
 
-* 🐳 **Dockerized Application:** Easily build and run the microservice in any environment.
+* 🐳 **Dockerized Application:** Easily build and run the Node JS Application in any environment.
 * ⚙️ **GitHub Actions CI/CD:** Automated build, push, and deployment pipeline.
 * 🚀 **Remote Deployment:** Uses SSH to deploy the latest image to your server.
 
