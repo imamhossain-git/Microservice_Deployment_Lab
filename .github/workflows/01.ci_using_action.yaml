@@ -23,9 +23,18 @@ jobs:
           password: ${{ secrets.DOCKER_TOKEN }}
 
       - name: Build Docker image
-        run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/myapp:${{ github.sha }} .
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/myapp:${{ github.sha }} .
 
       - name: Push Docker image
-        run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/myapp:${{ github.sha }}
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/myapp:${{ github.sha }}
+
+      - name: Run Script on remote server
+        uses: appleboy/ssh-action@v0.1.0
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          # port: ${{ secrets.SSH_PORT }}
+          script:  |
+            cd /home/ubuntu
+            ./manual-dployment.sh ${{ github.sha }}
