@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  docker:
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
@@ -27,7 +27,10 @@ jobs:
 
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/microservice_deployment_lab:${{ github.sha }}
-
+  Deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:        
       - name: Run Script on remote server
         uses: appleboy/ssh-action@v0.1.0
         with:
