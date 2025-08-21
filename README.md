@@ -1,6 +1,6 @@
 # 🌐 Microservice Deployment Lab
 
-This project demonstrates a **CI/CD pipeline** for building and deploying a Dockerized microservice using **GitHub Actions** and remote server deployment.
+This project demonstrates a **CI/CD pipeline** for building and deploying a Dockerized Node JS Application using **GitHub Actions** and remote server deployment.
 
 ---
 
