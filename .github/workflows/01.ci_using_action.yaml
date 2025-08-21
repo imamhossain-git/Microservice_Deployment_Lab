@@ -23,10 +23,10 @@ jobs:
           password: ${{ secrets.DOCKER_TOKEN }}
 
       - name: Build Docker image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/myapp:${{ github.sha }} .
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/microservice_deployment_lab:${{ github.sha }} .
 
       - name: Push Docker image
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/myapp:${{ github.sha }}
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/microservice_deployment_lab:${{ github.sha }}
 
       - name: Run Script on remote server
         uses: appleboy/ssh-action@v0.1.0
