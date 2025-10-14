@@ -28,17 +28,41 @@ jobs:
 
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/microservice_deployment_lab:${{ github.sha }}
-  Deploy:
-    needs: build-and-push
+  update_manifast_image:
     runs-on: ubuntu-latest
-    steps:        
-      - name: Run Script on remote server
-        uses: appleboy/ssh-action@v0.1.0
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
-          host: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
-          # port: ${{ secrets.SSH_PORT }}
-          script:  |
-            cd /home/ubuntu
-            ./manual-dployment.sh ${{ github.sha }}
+          repoository: imamhossain-git/argocd-demo
+          ref: lab
+          token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+
+      - name: Update image in manifest file
+        run: |
+          sed -i "s|image: imam2000/microservice_deployment_lab:.*|image: imam2000/microservice_deployment_lab:${{ github.sha }}|g" frontend/deployment.yaml
+          cat frontend/deployment.yaml
+      - name: commit and push changes
+        run: |
+          cd argocd-demo
+          git config user.name "imamhossain-git"
+          git config user.email "imamhossain5843@gmail.com"
+          git add .
+          git commit -m "Update image to ${{ github.sha }}"
+          git push origin lab
+
+  # Deploy:
+  #   needs: build-and-push
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Run Script on remote server
+  #       uses: appleboy/ssh-action@v0.1.0
+  #       with:
+  #         host: ${{ secrets.SERVER_IP }}
+  #         username: ${{ secrets.SERVER_USER }}
+  #         key: ${{ secrets.SERVER_SSH_KEY }}
+  #         # port: ${{ secrets.SSH_PORT }}
+  #         script:  |
+  #           cd /home/ubuntu
+  #           ./manual-dployment.sh ${{ github.sha }}
