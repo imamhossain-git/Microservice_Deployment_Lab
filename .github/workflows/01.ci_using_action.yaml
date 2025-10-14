@@ -35,7 +35,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          repoository: imamhossain-git/argocd-demo
+          repository: imamhossain-git/argocd-demo
           ref: lab
           token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
 
