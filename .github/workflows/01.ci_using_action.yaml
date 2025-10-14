@@ -42,8 +42,8 @@ jobs:
           
       - name: Update image in manifest file
         run: |
-          sed -i "s|image: imam2000/microservice_deployment_lab:.*|image: imam2000/microservice_deployment_lab:${{ github.sha }}|g" frontend/Deployment.yaml
-          cat frontend/Deployment.yaml
+          sed -i "s|image: imam2000/microservice_deployment_lab:.*|image: imam2000/microservice_deployment_lab:${{ github.sha }}|g" argocd-demo/frontend/Deployment.yaml
+          cat argocd-demo/frontend/Deployment.yaml
       - name: commit and push changes
         run: |
           cd argocd-demo
