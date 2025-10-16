@@ -28,7 +28,7 @@ jobs:
 
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/microservice_deployment_lab:${{ github.sha }}
-  update_manifast_image:
+  update_manifest_image:
     runs-on: ubuntu-latest
 
     steps:
